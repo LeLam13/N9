@@ -41,6 +41,18 @@ constraint fk_sanpham_ctsanpham foreign key (masp) references sanpham(masp)
 )
 go
 
+create table nhanvien
+(manv varchar(10) primary key not null,
+hoten nvarchar(30) not null,
+tuoi int not null,
+diachi nvarchar(30) not null,
+sdt varchar(13) not null,
+gioitinh bit not null,
+email varchar(30) not null,
+roles bit not null,
+matkhau nvarchar(30) null
+)
+go
 
 drop database PMQL
 go
@@ -65,3 +77,4 @@ select * from ctsanpham
 
 select ctsanpham.masp,tensp,soluong,gia,ketcau,thetich,theloai,mota from sanpham join ctsanpham on sanpham.masp=ctsanpham.masp join dungtich on dungtich.madt=ctsanpham.madt join chamsoc on chamsoc.macs=ctsanpham.macs 
 
+select * from nhanvien

@@ -21,14 +21,14 @@ public class SanPhamService {
     String sql = null;
 
     public List<SanPham> getAll() {
-        sql = "select mactsp,sanpham.masp,tensp,soluong,gia,ketcau,thetich,theloai,mota from sanpham join ctsanpham on sanpham.masp=ctsanpham.masp join dungtich on dungtich.madt=ctsanpham.madt join chamsoc on chamsoc.macs=ctsanpham.macs";
+        sql = "select mactsp,sanpham.masp,tensp,soluong,gia,ketcau,thetich,theloai,mota,trangthai from sanpham join ctsanpham on sanpham.masp=ctsanpham.masp join dungtich on dungtich.madt=ctsanpham.madt join chamsoc on chamsoc.macs=ctsanpham.macs";
         List<SanPham> list = new ArrayList<>();
         try {
             con = DBConnect.DBConnect.getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                SanPham sp = new SanPham(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4), rs.getFloat(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+                SanPham sp = new SanPham(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getInt(4), rs.getFloat(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),rs.getBoolean(10));
                 list.add(sp);
             }
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class SanPhamService {
     }
 
     public int addct(SanPham sp) {
-        sql = "insert into ctsanpham(soluong,gia,ketcau,madt,macs,masp) values(?,?,?,?,?,?)";
+        sql = "insert into ctsanpham(soluong,gia,ketcau,madt,macs,masp,trangthai) values(?,?,?,?,?,?,?)";
         try {
             con = DBConnect.DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -80,6 +80,7 @@ public class SanPhamService {
             ps.setObject(4, sp.getIdTheTich());
             ps.setObject(5, sp.getIdTheLoai());
             ps.setObject(6, sp.getMasp());
+            ps.setObject(7, sp.isTrangthai());
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +117,7 @@ public class SanPhamService {
     }
 
     public int updatect(SanPham sp, String ma) {
-        sql = "update ctsanpham set soluong=?,gia=?,ketcau=?,madt=?,macs=?,masp=? where mactsp=?";
+        sql = "update ctsanpham set soluong=?,gia=?,ketcau=?,madt=?,macs=?,masp=?,trangthai=? where mactsp=?";
         try {
             con = DBConnect.DBConnect.getConnection();
             ps = con.prepareStatement(sql);
@@ -126,7 +127,8 @@ public class SanPhamService {
             ps.setObject(4, sp.getIdTheTich());
             ps.setObject(5, sp.getIdTheLoai());
             ps.setObject(6, sp.getMasp());
-            ps.setObject(7, ma);
+            ps.setObject(7, sp.isTrangthai());
+            ps.setObject(8, ma);
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

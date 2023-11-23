@@ -16,7 +16,7 @@ public class SanPham {
     private String idTheLoai;
     private String idTheTich;
     private int mact;
-
+    private boolean trangthai;
     
     
 
@@ -52,7 +52,17 @@ public class SanPham {
         this.idTheTich = idTheTich;
     }
 
-    public SanPham(int mact, String masp, String tensp, int soluong, float gia, String ketcau, String idTheTich, String idTheLoai, String mota ) {
+    public boolean isTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(boolean trangthai) {
+        this.trangthai = trangthai;
+    }
+    
+    
+    
+    public SanPham(int mact, String masp, String tensp, int soluong, float gia, String ketcau, String idTheTich, String idTheLoai, String mota,boolean trangthai ) {
         this.masp = masp;
         this.tensp = tensp;
         this.soluong = soluong;
@@ -62,6 +72,7 @@ public class SanPham {
         this.idTheLoai = idTheLoai;
         this.idTheTich = idTheTich;
         this.mact = mact;
+        this.trangthai=trangthai;
     }
 
 
